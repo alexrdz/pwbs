@@ -60,6 +60,7 @@ class Router
       }
 
       // remove segments one by one to see if this is a page template that supports segments
+      // TODO: make recursive
       $uriparts = explode('/', $uri);
       $last_segment = array_pop($uriparts);
       $new_uri = implode('/', $uriparts);
