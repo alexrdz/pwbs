@@ -1,0 +1,10 @@
+@layer reset, vendor;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('./unpoly.css') layer(vendor);
+
+*, html, body {
+  font-family: 'Crimson Text', serif;
+}
