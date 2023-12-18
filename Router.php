@@ -19,6 +19,7 @@ class Router
       'input' => $wire->input,
       'sanitizer' => $wire->sanitizer,
       'modules' => $wire->modules,
+      'config' => $wire->config,
     ];
   }
 
@@ -42,20 +43,20 @@ class Router
 
   public function route($uri)
   {
-    extract($this->vars);
     $page = $this->vars['pages']->get($uri);
-    $home = $pages->get('/');
-
+    $home = $this->vars['pages']->get('/');
+    $page->body = str_replace('/site/assets', '/pw/site/assets', $page->body);
+    $page->body = str_replace('/site/files', '/pw/site/files', $page->body);
+    $this->vars['page'] = $page;
     if ($page->id) {
       $controller = $page->template->name;
-      return require "controllers/{$controller}.php";
+      return loadView($this->vars, $controller);
     }
 
     if ($page->id === 0) {
       foreach ($this->routes as $route) {
         if ($route['uri'] === $uri && $route['method'] === $_SERVER['REQUEST_METHOD']) {
-          require $route['controller'];
-          return;
+          return loadView($this->vars, $route['controller']);
         }
       }
 
@@ -68,7 +69,7 @@ class Router
 
       if ($template->urlSegments) {
         $page = $this->vars['pages']->get($new_uri);
-        return require "controllers/{$template}.php";
+        return loadView($this->vars, $template);
       }
 
       $this->abort();
@@ -79,7 +80,7 @@ class Router
   {
     http_response_code($code);
     extract($this->vars);
-    require "views/{$code}.view.php";
+    loadView($this->vars, $code);
     exit ();
   }
 

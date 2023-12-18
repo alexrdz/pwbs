@@ -55,3 +55,19 @@ function getSegement($index = 1)
   $uri_segments = explode('/', $uri_path);
   return $uri_segments[$index];
 }
+
+/**
+ * Loads a view for a controller.
+ *
+ * @param string $controller The name of the controller.
+ * @param string $layout The layout file to use for the view. Defaults to 'views/_main.php'.
+ * @throws Exception If the controller or layout file cannot be found.
+ * @return void
+ */
+function loadView($vars, $controller, $layout = '_main')
+{
+  extract($vars);
+  require_once 'views/_view_bootstrap.php';
+  require "controllers/{$controller}.php";
+  require_once "layouts/{$layout}.php";
+}

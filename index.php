@@ -1,10 +1,10 @@
 <?php
 global $wire;
 
-include (__DIR__ . '/partials/errors/installation.errors.php');
-
 require (__DIR__ . '/_funcs.php');
 require (__DIR__ . '/Router.php');
+
+include (__DIR__ . '/partials/errors/installation.errors.php');
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
