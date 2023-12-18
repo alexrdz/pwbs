@@ -19,10 +19,10 @@ If you would like a route that is not part of your PW site, you can create a rou
 $router->get('/ranom-page', 'controllers/random.php');
 ```
 
-You can also create data processing / form handling routesusing the `post` method:
+You can also create data processing / form handling routes using the `post` method:
 
 ```
-$router->get('/create-new-page', 'controllers/create.php');
+$router->post('/create-new-page', 'controllers/create.php');
 ```
 
 In your controllers you will have access to all the data you need from Processwire to build your app or site, such as `$page`, `$pages`, `$session`, `$user`, `$users` etc.
